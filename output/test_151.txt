@@ -1,0 +1,2 @@
+Program([ConstDecl("TrieuMan",None,ArrayLiteral([IntLiteral(2),IntLiteral(4),Id("a"),Id("BDH")],Id("TrieuMan"),[IntLiteral(0x123),NilLiteral(),BooleanLiteral(true),IntLiteral(3438593),FloatLiteral(3.44)]))
+		])

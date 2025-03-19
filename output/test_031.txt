@@ -1,1 +1,2 @@
-Program([StructType(ID,[(a,IntType),(b,Id(ID)),(c,ArrayType(IntType,[IntLiteral(2)]))],[])])
+Program([ConstDecl("a",None,ArrayLiteral([IntLiteral(1)],Id("ID"),[StructLiteral("Votien",[])]))
+		])

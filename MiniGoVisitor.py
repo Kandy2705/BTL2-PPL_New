@@ -104,16 +104,6 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#list_arr_index.
-    def visitList_arr_index(self, ctx:MiniGoParser.List_arr_indexContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#arr_index.
-    def visitArr_index(self, ctx:MiniGoParser.Arr_indexContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MiniGoParser#assignment_for.
     def visitAssignment_for(self, ctx:MiniGoParser.Assignment_forContext):
         return self.visitChildren(ctx)

@@ -1,1 +1,2 @@
-Program([FuncDecl(foo,[],VoidType,Block([Assign(FieldAccess(Id(a),b),IntLiteral(1))]))])
+Program([FuncDecl("foo",[],VoidType(),Block([Assign(FieldAccess(Id("a"),"b"),IntLiteral(1))]))
+		])

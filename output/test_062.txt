@@ -1,1 +1,2 @@
-Program([StructType(Votien,[(a,IntType),(b,BoolType)],[])])
+Program([StructType("Votien",[("a",IntType()),("b",BoolType())],[])
+		])

@@ -1,1 +1,2 @@
-Program([MethodDecl(Cat,Id(c),FuncDecl(foo,[],VoidType,Block([Return()])))])
+Program([MethodDecl("Cat",Id("c"),FuncDecl("foo",[],VoidType(),Block([Return(None)])))
+		])

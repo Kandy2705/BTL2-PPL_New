@@ -1,1 +1,2 @@
-Program([VarDecl(a,IntLiteral(1))])
+Program([VarDecl("a", None,IntLiteral(1))
+		])

@@ -1,1 +1,2 @@
-Program([MethodDecl(Cat,Id(c),FuncDecl(foo,[ParDecl(a,IntType),ParDecl(b,ArrayType(IntType,[IntLiteral(1)]))],VoidType,Block([Return()])))])
+Program([MethodDecl("Cat",Id("c"),FuncDecl("foo",[ParamDecl("a",IntType()),ParamDecl("b",ArrayType([IntLiteral(1)],IntType()))],VoidType(),Block([Return(None)])))
+		])

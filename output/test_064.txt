@@ -1,1 +1,2 @@
-Program([InterfaceType(Votien,[Prototype(Add,[],VoidType)])])
+Program([InterfaceType("Votien",[Prototype("Add",[],VoidType())])
+		])

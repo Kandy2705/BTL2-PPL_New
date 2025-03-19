@@ -272,28 +272,24 @@ class ASTGeneration(MiniGoVisitor):
     def visitDot(self, ctx:MiniGoParser.DotContext):
         if (ctx.getChildCount() == 1):
             return Id(ctx.ID().getText())
-        lhs = self.visit(ctx.getChild(0))
         rhs = None
         
         if ctx.LBRACKET():
-            rhs = self.visit(ctx.getChild(2))
-            return ArrayCell(lhs, [rhs])
+            # rhs = self.visit(ctx.getChild(2))
+            # return ArrayCell(lhs, [rhs])
+            dot = self.visit(ctx.dot())
+            if type(dot) == ArrayCell:
+                return ArrayCell(dot.arr, dot.idx + [self.visit(ctx.expr())])
+            return ArrayCell(dot, [self.visit(ctx.expr())])
         else:
+            lhs = self.visit(ctx.getChild(0))
             rhs = ctx.getChild(2).getText()
             return FieldAccess(lhs, rhs)
-
-
-    # Visit a parse tree produced by MiniGoParser#list_arr_index.
-    def visitList_arr_index(self, ctx:MiniGoParser.List_arr_indexContext):
-        if ctx.list_arr_index():
-            return [self.visit(ctx.arr_index())] + self.visit(ctx.list_arr_index())
         
-        return [self.visit(ctx.arr_index())]
+        
+        
+        
 
-
-    # Visit a parse tree produced by MiniGoParser#arr_index.
-    def visitArr_index(self, ctx:MiniGoParser.Arr_indexContext):
-        return self.visit(ctx.expr())
 
 
     # Visit a parse tree produced by MiniGoParser#assignment_for.
@@ -491,21 +487,21 @@ class ASTGeneration(MiniGoVisitor):
         if ctx.COMMA():
 
             if ctx.INT_DEC() or ctx.INT_BIN() or ctx.INT_OCT() or ctx.INT_HEX():
-                current = [IntLiteral(int(ctx.getChild(0).getText(), 0))]
+                current = [IntLiteral(ctx.getChild(0).getText())]
             elif ctx.TRUE():
-                current = [BooleanLiteral(True)]
+                current = [BooleanLiteral(ctx.TRUE() .getText())]
             elif ctx.FALSE():
-                current = [BooleanLiteral(False)]
+                current = [BooleanLiteral(ctx.FALSE().getText())]
             elif ctx.NIL():
                 current = [NilLiteral()]
             elif ctx.FLOAT_LIT():
-                current = [FloatLiteral(float(ctx.FLOAT_LIT().getText()))]
+                current = [FloatLiteral(ctx.FLOAT_LIT().getText())]
             elif ctx.STRING_LIT():
-                current = [StringLiteral(ctx.STRING_LIT().getText()[1:-1])]
+                current = [StringLiteral(ctx.STRING_LIT().getText())]
             elif ctx.list_expr():
                 current = [self.visit(ctx.list_expr())]
             elif ctx.ID():
-                current = [ctx.ID().getText()]
+                current = [Id(ctx.ID().getText())]
             else:
                 current = [self.visit(ctx.struct_literal())]
             
@@ -515,21 +511,21 @@ class ASTGeneration(MiniGoVisitor):
             
         else:
             if ctx.INT_DEC() or ctx.INT_BIN() or ctx.INT_OCT() or ctx.INT_HEX():
-                current = [IntLiteral(int(ctx.getChild(0).getText(), 0))]
+                current = [IntLiteral(ctx.getChild(0).getText())]
             elif ctx.TRUE():
-                current = [BooleanLiteral(True)]
+                current = [BooleanLiteral(ctx.TRUE() .getText())]
             elif ctx.FALSE():
-                current = [BooleanLiteral(False)]
+                current = [BooleanLiteral(ctx.FALSE().getText())]
             elif ctx.NIL():
                 current = [NilLiteral()]
             elif ctx.FLOAT_LIT():
-                current = [FloatLiteral(float(ctx.FLOAT_LIT().getText()))]
+                current = [FloatLiteral(ctx.FLOAT_LIT().getText())]
             elif ctx.STRING_LIT():
-                current = [StringLiteral(ctx.STRING_LIT().getText()[1:-1])]
+                current = [StringLiteral(ctx.STRING_LIT().getText())]
             elif ctx.list_expr():
                 current = [self.visit(ctx.list_expr())]
             elif ctx.ID():
-                current = [ctx.ID().getText()]
+                current = [Id(ctx.ID().getText())]
             else:
                 current = [self.visit(ctx.struct_literal())]
 
@@ -664,27 +660,30 @@ class ASTGeneration(MiniGoVisitor):
                 return FieldAccess(vetrai, vephai)
 
         else: 
-            vetrai = self.visit(ctx.getChild(0))
-            vephai = self.visit(ctx.getChild(2))
-            return ArrayCell(vetrai, [vephai])
-
+            # vetrai = self.visit(ctx.getChild(0))
+            # vephai = self.visit(ctx.getChild(2))
+            # return ArrayCell(vetrai, [vephai])
+            expr6 = self.visit(ctx.expr6())
+            if type(expr6) == ArrayCell:
+                return ArrayCell(expr6.arr, expr6.idx + [self.visit(ctx.expr())])
+            return ArrayCell(expr6, [self.visit(ctx.expr())])
 
     # Visit a parse tree produced by MiniGoParser#expr7.
     def visitExpr7(self, ctx:MiniGoParser.Expr7Context):
         if ctx.ID():
             return Id(ctx.ID().getText())
         elif ctx.INT_DEC():
-            return IntLiteral(int(ctx.INT_DEC().getText(), 0))
+            return IntLiteral(ctx.INT_DEC().getText())
         elif ctx.INT_BIN():
-            return IntLiteral(int(ctx.INT_BIN().getText(), 0))
+            return IntLiteral(ctx.INT_BIN().getText())
         elif ctx.INT_OCT():
-            return IntLiteral(int(ctx.INT_OCT().getText(), 0))
+            return IntLiteral(ctx.INT_OCT().getText())
         elif ctx.INT_HEX():
-            return IntLiteral(int(ctx.INT_HEX().getText(), 0))
+            return IntLiteral(ctx.INT_HEX().getText())
         elif ctx.FLOAT_LIT():
-            return FloatLiteral(float(ctx.FLOAT_LIT().getText()))
+            return FloatLiteral(ctx.FLOAT_LIT().getText())
         elif ctx.STRING_LIT():
-            return StringLiteral(ctx.STRING_LIT().getText()[1:-1])
+            return StringLiteral(ctx.STRING_LIT().getText())
         elif ctx.NIL():
             return NilLiteral()
         elif ctx.struct_literal():
@@ -696,9 +695,9 @@ class ASTGeneration(MiniGoVisitor):
         elif ctx.func_call():
             return self.visit(ctx.func_call())
         elif ctx.TRUE():
-            return BooleanLiteral(True)
+            return BooleanLiteral(ctx.TRUE() .getText())
         elif ctx.FALSE():
-            return BooleanLiteral(False)
+            return BooleanLiteral(ctx.FALSE().getText())
         else:   
             return self.visit(ctx.expr())
 
@@ -724,4 +723,7 @@ class ASTGeneration(MiniGoVisitor):
             return [self.visit(ctx.expr())] + self.visit(ctx.func_call_thamso())
         return [self.visit(ctx.expr())]
 
+
+
+    
 
